@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>To-Do List</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f3f4f6; display: flex; justify-content: center; align-items: center; height: 100vh; }
+    .todo-container { background: #fff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 400px; }
+    h2 { text-align: center; }
+    .todo-input { display: flex; margin-bottom: 20px; }
+    .todo-input input { flex: 1; padding: 10px; border: 1px solid #ccc; border-radius: 8px 0 0 8px; outline: none; }
+    .todo-input button { padding: 10px 15px; border: none; background: #4CAF50; color: white; border-radius: 0 8px 8px 0; cursor: pointer; }
+    ul { list-style: none; padding: 0; }
+    li { background: #f9f9f9; margin: 8px 0; padding: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
+    .actions button { margin-left: 5px; border: none; padding: 5px 8px; cursor: pointer; border-radius: 5px; }
+    .edit-btn { background: #2196F3; color: #fff; }
+    .delete-btn { background: #f44336; color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="todo-container">
+    <h2>To-Do List (MySQL)</h2>
+    <form action="/add" method="POST" class="todo-input">
+      <input type="text" name="task" placeholder="Add a new task..." required>
+      <button type="submit">Add</button>
+    </form>
+    <ul>
+      {% for task in tasks %}
+        <li>
+          <form action="/update/{{task.id}}" method="POST" style="display:inline;">
+            <input type="text" name="task" value="{{task.text}}">
+            <button class="edit-btn" type="submit">Update</button>
+          </form>
+          <form action="/delete/{{task.id}}" method="POST" style="display:inline;">
+            <button class="delete-btn" type="submit">Delete</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>
